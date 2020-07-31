@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN,default">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="一名蒟蒻的辣鸡博客" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    题解 Luogu P1099 【树网的核】 |  Sparky_14145&#39;s blog
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="https://i.loli.net/2019/02/03/5c567285d37de.png" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      <canvas class="fireworks"></canvas>
+      <style>
+        .fireworks {
+          position: fixed;
+          left: 0;
+          top: 0;
+          z-index: 99999;
+          pointer-events: none;
+        }
+      </style>
+      
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-题解_Luogu_P1099【树网的核】"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  题解 Luogu P1099 【树网的核】
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2018/09/11/%E9%A2%98%E8%A7%A3_Luogu_P1099%E3%80%90%E6%A0%91%E7%BD%91%E7%9A%84%E6%A0%B8%E3%80%91/" class="article-date">
+  <time datetime="2018-09-11T08:25:40.000Z" itemprop="datePublished">2018-09-11</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">8 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P1099">题目链接</a>  </p>
+<p>发布一篇时间复杂度为$O(n)$的题解</p>
+<a id="more"></a>
+<hr>
+<h1 id="text-Prev-1-：读懂题意"><a href="#text-Prev-1-：读懂题意" class="headerlink" title="$\text{Prev 1}$：读懂题意"></a>$\text{Prev 1}$：读懂题意</h1><p>什么树网啊，明明就是普通的<strong>无根树</strong>么……<br>一直到偏心距（ECCF）以前相信大家都能看懂……<br>然后题目要求<strong>直径</strong>上的一段路径，使其在<strong>长度</strong>$\leq s$的前提下偏心距最小。<br>把题目从$\text{CCF}$语言翻译成现代汉语，就是：  </p>
+<blockquote>
+<p>给定一棵带边权无根树，在其直径上求出一段长度不超过$s$的路径$F$，使得离路径距离最远的点到路径的距离最短。  </p>
+</blockquote>
+<h1 id="text-Prev-2-：直径的定义与性质及其引发的思考"><a href="#text-Prev-2-：直径的定义与性质及其引发的思考" class="headerlink" title="$\text{Prev 2}$：直径的定义与性质及其引发的思考"></a>$\text{Prev 2}$：直径的定义与性质及其引发的思考</h1><p>首先，明白一件事：对于<strong>直径上任意一个点</strong>，到它本身的距离最远的点一定是<strong>直径的某个端点</strong>。理由很简单：如果存在某个点$P$使得直径上的点$A$到其的距离超过点$A$到直径的两端距离的最大值，那么我们可以将直径的一个端点与$A$分离开，并且接上$AP$得到一条比直径更长的路径。但是根据定义，直径应该是整棵树上的最长路径，因此，之前的那条直径是一条<em>假的直径</em>。换句话说，假设不成立。<br>然后考虑对于直径上的一条路径$F$，有哪些因素会对其偏心距造成影响。<br>为了方便描述，</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> 直径::路径;</span><br></pre></td></tr></table></figure>
+
+<p>首先，肯定会有路径两端点分别到直径两端点对答案造成影响。并且设路径端点、直径端点分别为$A_1,A_2,P_1,P_2$，如果对答案造成影响的是$A_1,P_1$或者$A_2,P_2$，那么$A_1P_1$路径$F$的交点只有$A_1$，$A_2P_2$与路径$F$的交点只有$A_2$。<br>那么，路径$F$的长度越长答案一定越优吗？<br><del>显然</del>不是这样的。<br>因为刚刚只考虑了$A_1,A_2$对答案的贡献。但是路径上的其它点对答案其实也有贡献。比如说对于下面的这幅图：<br><img src="https://github.com/Sparky-14145/items/blob/master/pictures/32613.png?raw=true" alt="例子"><br>（写题解和写博客不是一台机子，中途用了一下洛谷图床，被打上了<del>美观的</del>水印，将就一下吧）<br>当$s=18$时答案应该为$3$，但是如果只考虑$A_1,A_2$的贡献，计算结果则会变成$0$。<br>从上图不难看出，路径上其它点$Q$对答案的贡献为：<strong>不经过路径上任何其它点所能到达的最远点的距离</strong>。<del>不难</del>发现实际计算答案时即使把路径端点的这种“贡献”计入总贡献也不会产生影响（因为端点的第一种贡献更大，“掩盖住了”这种贡献）。<br>那么如果一棵树有多条直径怎么办呢？没关系，<strong>任选一条</strong>即可。首先，两条直径不可能不相交。把相交的那一部分看成一个点，剩下的直径部分就会<strong>关于这个点对称</strong>。而如果选择的路径包含了分叉点，其偏心距就是恒定的（这个分叉点到直径末端的距离），所以可以任选一条直径求解。  </p>
+<h1 id="text-Main-：解题过程"><a href="#text-Main-：解题过程" class="headerlink" title="$\text{Main}$：解题过程"></a>$\text{Main}$：解题过程</h1><p>本题可以使用邻接矩阵存图，但是为了修改方便，也为了降低空间间复杂度（<a target="_blank" rel="noopener" href="https://www.lydsy.com/JudgeOnline/problem.php?id=1999">$\text{BZOJ}$上这道题的数据规模被增强到了$n \leq 5 \times 10^5$</a>）此处仍然使用邻接表存图。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Point</span> &#123;</span> <span class="comment">//点</span></span><br><span class="line">    <span class="keyword">int</span> dist = <span class="number">0</span>, head = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> fa = <span class="number">0</span>, fa_dist = <span class="number">0</span>; <span class="comment">//以直径一个端点为根，父节点编号及到其距离</span></span><br><span class="line">    <span class="keyword">int</span> cur_dist = <span class="number">0</span>; <span class="comment">//后面用来降低时间复杂度</span></span><br><span class="line">    <span class="keyword">bool</span> vis = <span class="literal">false</span>;</span><br><span class="line">&#125; pt[<span class="number">305</span>];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Path</span> &#123;</span> <span class="comment">//边</span></span><br><span class="line">    <span class="keyword">int</span> end = <span class="number">0</span>, weight = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> next = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    Path(<span class="keyword">int</span> __end = <span class="number">0</span>, <span class="keyword">int</span> __cost = <span class="number">0</span>, <span class="keyword">int</span> __next = <span class="number">0</span>) :</span><br><span class="line">        end(__end), weight(__cost), next(__next) &#123;&#125;</span><br><span class="line">&#125; ph[<span class="number">605</span>];</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">set_path</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v, <span class="keyword">int</span> w)</span> </span>&#123;</span><br><span class="line">    ph[++ptr] = Path(v, w, pt[u].head), pt[u].head = ptr;</span><br><span class="line">    ph[++ptr] = Path(u, w, pt[v].head), pt[v].head = ptr;</span><br><span class="line">&#125;<span class="comment">//这个连边函数的写法来自panda_2134大爷</span></span><br></pre></td></tr></table></figure>
+
+<p>接下来是两次$\text{DFS}$求出直径。  </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs1</span><span class="params">(<span class="keyword">int</span> p)</span> </span>&#123; <span class="comment">//p表示正在访问哪个点</span></span><br><span class="line">    <span class="keyword">if</span>(pt[p].vis) <span class="keyword">return</span>;</span><br><span class="line">    pt[p].vis = <span class="literal">true</span>; <span class="comment">//做好标记</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = pt[p].head; i; i = ph[i].next) &#123;</span><br><span class="line">        <span class="keyword">int</span> s = ph[i].end;</span><br><span class="line">        <span class="keyword">if</span>(pt[s].vis) <span class="keyword">continue</span>;</span><br><span class="line">        pt[s].fa = p,</span><br><span class="line">        pt[s].fa_dist = ph[i].weight,</span><br><span class="line">        pt[s].dist = pt[p].dist + ph[i].weight;</span><br><span class="line">        dfs1(s); <span class="comment">//注意要在访问子节点前维护好子节点信息！</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（这是主函数中对应部分）  </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">dfs1(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">int</span> rt, tempx = <span class="number">0</span>; <span class="comment">//tempx保存已经找到的最远点</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    pt[i].vis = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(pt[i].dist &gt; pt[tempx].dist)</span><br><span class="line">        tempx = i;</span><br><span class="line">&#125;</span><br><span class="line">rt = tempx, tempx = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">    pt[i].dist = pt[i].fa =</span><br><span class="line">    pt[i].fa_dist = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">dfs1(rt);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">    pt[i].vis = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(pt[i].dist &gt; pt[tempx].dist)</span><br><span class="line">        tempx = i;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> dist1 = <span class="number">0</span>, dist2 = <span class="number">0</span>, tot;</span><br><span class="line"><span class="keyword">while</span>(pt[tempx].fa) <span class="comment">//将直径按照从叶子到根的顺序打印到数组del中</span></span><br><span class="line">    dist2 += pt[tempx].fa_dist,</span><br><span class="line">    del[++m] = tempx,</span><br><span class="line">    pt[tempx].vis = <span class="literal">true</span>,</span><br><span class="line">    tempx = pt[tempx].fa;</span><br><span class="line">pt[rt].vis = <span class="literal">true</span>, del[++m] = tempx;</span><br><span class="line">tot = dist2;</span><br></pre></td></tr></table></figure>
+
+<p>然后预处理出每个点<strong>以第二种方式产生的贡献值</strong>（通过一次$DFS$，主函数中的调用过程<del>比较简单，</del>留给读者自己思考）  </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dfs2</span><span class="params">(<span class="keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    pt[p].vis = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = pt[p].head; i; i = ph[i].next) &#123;</span><br><span class="line">        <span class="keyword">int</span> s = ph[i].end;</span><br><span class="line">        <span class="keyword">if</span>(pt[s].vis) <span class="keyword">continue</span>;</span><br><span class="line">        pt[s].dist = pt[p].dist + ph[i].weight;</span><br><span class="line">        dfs2(s);</span><br><span class="line">        temp = <span class="built_in">std</span>::max(temp, pt[s].dist);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>显然，上面的所有过程都是$O(n)$的。那么为什么会有其它的$O(n^2)$的写法呢？<br>（<strong>个人认为本题的主要时间复杂度来自以下过程：</strong>）<br>接着是枚举所选路径的两个端点并且计算答案。这个过程的时间复杂道是$O(n^2)$，所以，算法总时间复杂度为$O(n^2)$。对于官方数据$n \leq 300$轻松通过。  </p>
+<h2 id="完结撒花？"><a href="#完结撒花？" class="headerlink" title="完结撒花？"></a>完结撒花？</h2><p>可是最后面一部分代码呢？不存在的！<strong>本题解是$O(n)$的题解</strong>，怎么可能有$O(n^2)$的代码？<br>仔细看一下写出的$O(n^2)$的代码（没写完的请自觉写完）。这不就是一个线性的动态规划嘛！<br>把记录下来的直径序列看成区间，本题变成了<strong>求一个长度不超过$s$的区间，使得其中所有元素的贡献值的最大值最小</strong>。<br>这种动态规划想到什么？没错，<strong>单调队列</strong>！<br>用单调队列维护一下区间元素的第二种贡献值，第一种贡献可以在左/右端点移动的同时计算。具体写法见以下代码。  </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt; q; <span class="comment">//需要#include &lt;deque&gt;（&lt;queue&gt;行）</span></span><br><span class="line"><span class="keyword">int</span> ans = <span class="number">2147483647</span>; <span class="comment">//正无穷</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>, j = <span class="number">1</span>; i &lt;= m; dist2 -= pt[del[i]].fa_dist, ++i) &#123;</span><br><span class="line"><span class="comment">//dist1是到起始端点的距离，初始化为0</span></span><br><span class="line"><span class="comment">//dist2是到终止端点的距离，初始化为直径长度</span></span><br><span class="line">    pt[del[i]].cur_dist = dist2; <span class="comment">//cur_dist成员表示这个点离终点的距离（没写好，dist最后用来保存第二种贡献值了）</span></span><br><span class="line">    <span class="keyword">while</span>(!q.empty() &amp;&amp; pt[q.front()].cur_dist - s &gt; pt[del[i]].cur_dist)</span><br><span class="line">        q.pop_front();</span><br><span class="line">    <span class="keyword">while</span>(j &lt; i &amp;&amp; tot - dist1 - dist2 &gt; s)</span><br><span class="line">        dist1 += pt[del[j++]].fa_dist;</span><br><span class="line">    <span class="keyword">while</span>(!q.empty() &amp;&amp; pt[q.back()].dist &lt; pt[del[i]].dist)</span><br><span class="line">        q.pop_back();</span><br><span class="line">    q.push_back(del[i]);</span><br><span class="line">    <span class="keyword">int</span> temp = <span class="built_in">std</span>::max(dist1, dist2);</span><br><span class="line">    temp = <span class="built_in">std</span>::max(temp, pt[q.front()].dist);</span><br><span class="line">    ans = <span class="built_in">std</span>::min(temp, ans); <span class="comment">//状态转移</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="text-End-：总结"><a href="#text-End-：总结" class="headerlink" title="$\text{End}$：总结"></a>$\text{End}$：总结</h1><ol>
+<li>我是真的没看出来那个“中心”的概念有什么用……</li>
+<li>即使原始的数据范围很水，也要尽力优化。AC不是我们的终极目标，我们的终极目标是获得经验。</li>
+</ol>
+<p>以上就是我要说的全部内容。由于水平所限，如果大家有什么不满意的地方或是什么建议想要提出，欢迎随时找我讨论！</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.sparky-14145.online/2018/09/11/%E9%A2%98%E8%A7%A3_Luogu_P1099%E3%80%90%E6%A0%91%E7%BD%91%E7%9A%84%E6%A0%B8%E3%80%91/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%8CDP/" rel="tag">动态规划，DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/" rel="tag">单调队列</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%BE%E8%AE%BA/" rel="tag">图论</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2018/11/05/%E3%80%90%E6%A8%A1%E6%9D%BF%E3%80%91%E7%BD%91%E7%BB%9C%E6%9C%80%E5%A4%A7%E6%B5%81_%E6%9C%80%E5%B0%8F%E8%B4%B9%E7%94%A8%E6%9C%80%E5%A4%A7%E6%B5%81/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            【模板】 网络最大流 和 最小费用最大流
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2018/08/12/%E9%A2%98%E8%A7%A3_Luogu_P3957%E3%80%90%E8%B7%B3%E6%88%BF%E5%AD%90%E3%80%91/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">题解 Luogu P3957 【跳房子】</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "gfd27U8OQBNXfsVyIM3nOCud-gzGzoHsz",
+    app_key: "RHXks08vX3ndWf2cjWAS06si",
+    path: window.location.pathname,
+    avatar: "mp",
+    placeholder: "大爷来玩啊~~~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2015-2020
+        <i class="ri-heart-fill heart_icon"></i> Sparky_14145
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://i.loli.net/2020/07/31/qEAHLNDKwdlsXC8.jpg" alt="Sparky_14145&#39;s blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="http://shenyu-vip.lofter.com">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>大爷行行好吧，小的几天没吃过东西了😢</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
+
+<script src="/js/clickBoom1.js"></script>
+
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+<script src="/js/dz.js"></script>
+
+
+
+    
+  </div>
+</body>
+
+</html>

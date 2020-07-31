@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN,default">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="一名蒟蒻的辣鸡博客" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    HBOI 2018 游记 |  Sparky_14145&#39;s blog
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="https://i.loli.net/2019/02/03/5c567285d37de.png" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      <canvas class="fireworks"></canvas>
+      <style>
+        .fireworks {
+          position: fixed;
+          left: 0;
+          top: 0;
+          z-index: 99999;
+          pointer-events: none;
+        }
+      </style>
+      
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-HBOI_2018_游记"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  HBOI 2018 游记
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2018/04/21/HBOI_2018_%E6%B8%B8%E8%AE%B0/" class="article-date">
+  <time datetime="2018-04-21T12:51:08.000Z" itemprop="datePublished">2018-04-21</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B8%B8%E8%AE%B0/">游记</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3.3k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">14 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <blockquote>
+<p><em>离HBOI 2018过去了二十几天了，大概是忘却的救主降临了吧，知道成绩时的unhappy和对panda_2134 &amp; n0000000000o的mod都消失的无影无踪了。于是，我决定写一篇游记，提醒自己，不忘初心，坚持走下去。</em></p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="赛前"><a href="#赛前" class="headerlink" title="赛前"></a>赛前</h1><h2 id="赛前第二天"><a href="#赛前第二天" class="headerlink" title="赛前第二天"></a>赛前第二天</h2><p>和往常一样，Sparky骑着他那<del>智障的</del>自行车<del>不要命地</del>从河边村经至喜大桥机动车道回家。在河边村门口他遇见了和CS一起等车的panda_2134。<br>晚上到家后Sparky感到十分激动，毕竟明天就要去武汉上<del>坟（清明节嘛）</del>分了。这可是他出生以来参加过的<strong>最高级的</strong>比赛了</p>
+<h2 id="赛前一天"><a href="#赛前一天" class="headerlink" title="赛前一天"></a>赛前一天</h2><p>Sparky早早地起了床。尽管约定的是9:00在火车站集合，但他还是7点左右就从家出发了。坐上B9，Sparky越来越激动 <del>（像个智障一样地傻笑着）</del>。突然，他感到事情有些不对，头开始发晕 <del>好像身体被掏空</del>。不好，Sparky又<strong>晕车</strong>了！<br>好不容易熬到了车站，Sparky已经晕成狗了。匆匆取了车票，赶到进站口，和同学们会合。进站口有好多好多的 <del>元素</del>人，这些人组成了一个个队列。每一个队列pop的效率都不一样，对应的是它们的size也不一样。那么我们应当push进哪一个呢？？？Sparky想着。。。<br>Sparky无意中发现自己“不知不觉地”就push进了size最大，pop效率最低的那条队列（神奇的心理）。看着前面长度 $ \geq 3 \times 10^5 $的队列，Sparky不禁感叹：这要是个priority_queue多好！！！然后，panda大佬听见了，就跟Sparky讲了一下单调队列（Sparky：WTF？？？怎么一句都听不懂啊？！）。<br>终于上了火车，Sparky和panda都很果断地掏出了笔记本——Sparky<strong>打开</strong>了泰拉瑞亚，panda<strong>翻开</strong>了学习笔记（panda_2134：这场比赛对我太重要了）。Sparky玩着，一旁的n0000000000o决定找Sparky拷一份泰拉瑞亚玩。<br>离到武汉还有大约40分钟，Sparky玩泰拉瑞亚玩得正起劲，突然听到前面传来panda的声音：我复习好了！<br>到了武汉，天公不作美，雨很大，冻得Sparky心态爆炸。<br>CS让大家在出站口附近的几家小店子里自己买吃的，一会儿集合。Sparky和WX以及老大等一行五六个人选择了一家肯德基。Sparky和WX push进了一条size $ \geq 3 \times 10^5 $的队列。等他们买完了吃的，pop出了队列，却惊奇地发现自己被<strong>放鸽子</strong>了：老大他们不见了。<br>饭后，CS带着所有同学们<del>走迷宫似的</del>找到了公交车站，上车（Sparky：WTFFFFFFFFFFFF？？？我又要晕一遍车啊？！）。到了宾馆，可能是由于晕车导致大脑缺氧，Sparky竟然选择了背着质量 $ \geq 3 \times 10^5 $的包<strong>徒步</strong>走上10楼。把包放着了以后，Sparky又拿着伞走下来（此时外面正下着大雨），打开伞，冲了出去，想体验暴风雨。结果，他过度高估了自己伞的伞架的硬度，出去不到10秒，伞就被风<strong>吹了个稀烂</strong>。然后，接下来的一整个下午，大家听到Sparky说的最多的话就是：<strong>我的伞啊</strong>！！！</p>
+<h1 id="赛中"><a href="#赛中" class="headerlink" title="赛中"></a>赛中</h1><h2 id="Day-1"><a href="#Day-1" class="headerlink" title="Day 1"></a>Day 1</h2><p>早上，n0000000000o的房间门口传来咚咚咚的敲门声，然后传来Sparky的声音：<strong>开门！社区送温暖！</strong><br>被n0000000000o一顿骂以后，Sparky很是没劲地下了楼，坐在沙县小吃里面边吃<del>混沌</del>馄饨。打开洛谷，打卡，小吉，宜 参加省队选拔 进队预定。为什么不是NOIp的超大吉？？？<br>集合，进考场。Sparky惊奇地发现，这次考试用的是C++11标准，并且还开了O2（这很不NOI）。Day 1的试卷密码是welcometoNOI2018!!!!!!!。然而监考人员粗心打成了“welcomtoNOI2018!!!!!!!”。。。场面一度十分尴尬。</p>
+<h3 id="P1-一双木棋"><a href="#P1-一双木棋" class="headerlink" title="P1 一双木棋"></a>P1 <a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P4363">一双木棋</a></h3><p>这道题据说可以用状压DP写，然而本蒟蒻不会DP。。。<br>题目中说<code>双方都采用最优策略且知道对方会采用最优策略</code>，但是，什么是“最优策略”本蒟蒻在考场上想了好久都没有想明白（之前在洛谷上写过一些入门难度的博弈论的题，以为这道题也是，结果研究样例1的说明研究半天，最终放弃）。。。<br>然后，我就只好写了一发贪心，希望能够把编号为奇数的测试点（$B_{i, j} = 0$）混过去。样例1没过，样例2过了，结果。。。。。。爆零。。。。。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> x, y, val;</span><br><span class="line">    node(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> c): x(a), y(b), val(c)&#123;&#125;</span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (node n) <span class="keyword">const</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(n.val != val) <span class="keyword">return</span> n.val &lt; val;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(n.x != x) <span class="keyword">return</span> n.x &gt; x;</span><br><span class="line">        <span class="keyword">return</span> n.y &gt; y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">priority_queue</span>&lt;node&gt; pq;</span><br><span class="line"><span class="keyword">int</span> n, m, A[<span class="number">10</span> + <span class="number">3</span>][<span class="number">10</span> + <span class="number">3</span>], B[<span class="number">10</span> + <span class="number">3</span>][<span class="number">10</span> + <span class="number">3</span>], dist[<span class="number">10</span> + <span class="number">3</span>][<span class="number">10</span> + <span class="number">3</span>], vis[<span class="number">10</span> + <span class="number">3</span>][<span class="number">10</span> + <span class="number">3</span>];</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> res;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt; n&gt;&gt; m;</span><br><span class="line">    <span class="keyword">int</span> are = n * m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= m; ++j)</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt; A[i][j];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= m; ++j)&#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt; B[i][j];</span><br><span class="line">        dist[i][j] = A[i][j] - B[i][j];</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//  for(int i = 1; i &lt;= n; ++i, fout&lt;&lt; endl)</span></span><br><span class="line"><span class="comment">//  for(int j = 1; j &lt;= m; ++j)</span></span><br><span class="line"><span class="comment">//      fout&lt;&lt; dist[i][j]&lt;&lt; &#x27; &#x27;;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; ++i)</span><br><span class="line">        vis[<span class="number">0</span>][i] = vis[n][i] = <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">        vis[i][<span class="number">0</span>] = vis[i][m] = <span class="number">4</span>;</span><br><span class="line">    pq.push(node(<span class="number">1</span>, <span class="number">1</span>, dist[<span class="number">1</span>][<span class="number">1</span>]));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= are; ++i)&#123;</span><br><span class="line">        node p = pq.top();</span><br><span class="line">        pq.pop();</span><br><span class="line">        vis[p.x][p.y] = (i &amp; <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(i &amp; <span class="number">1</span>) res += p.val;</span><br><span class="line">        <span class="keyword">if</span>(!vis[p.x + <span class="number">1</span>][p.y] &amp;&amp; vis[p.x + <span class="number">1</span>][p.y - <span class="number">1</span>])</span><br><span class="line">            pq.push(node(p.x + <span class="number">1</span>, p.y, dist[p.x + <span class="number">1</span>][p.y]));</span><br><span class="line">        <span class="keyword">if</span>(!vis[p.x][p.y + <span class="number">1</span>] &amp;&amp; vis[p.x - <span class="number">1</span>][p.y + <span class="number">1</span>])</span><br><span class="line">            pq.push(node(p.x, p.y + <span class="number">1</span>, dist[p.x][p.y + <span class="number">1</span>]));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt; res;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>表示真的想知道n0000000000o是怎么做到Day 1每道题都骗到分的。</p>
+<h3 id="P2-IIIDX"><a href="#P2-IIIDX" class="headerlink" title="P2 IIIDX"></a>P2 <a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P4364">IIIDX</a></h3><p>看题解上说线段树+二分。<br>可惜我依旧不会（看来我还是太弱了）……<br>考场上想到了贪心，然后写了一发优先队列，大概30~40分钟就完事了，没想到这是我本次考试唯一混到分的题目。。。<br>上代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function">ifstream <span class="title">fin</span><span class="params">(<span class="string">&quot;iiidx.in&quot;</span>)</span></span>;</span><br><span class="line"><span class="function">ofstream <span class="title">fout</span><span class="params">(<span class="string">&quot;iiidx.out&quot;</span>)</span></span>;</span><br><span class="line"><span class="keyword">double</span> k;</span><br><span class="line"><span class="keyword">int</span> n, res[<span class="number">500000</span> + <span class="number">5</span>];</span><br><span class="line"><span class="built_in">priority_queue</span>&lt;<span class="keyword">int</span>&gt; pq;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    fin&gt;&gt; n&gt;&gt; k;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>, j; i &lt;= n; ++i)&#123;</span><br><span class="line">        fin&gt;&gt; j;</span><br><span class="line">        pq.push(j);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = n; i &gt; <span class="number">0</span>; i--)&#123;</span><br><span class="line">        <span class="keyword">int</span> i2 = i;</span><br><span class="line">        <span class="keyword">while</span>(<span class="built_in">floor</span>(i / k) == <span class="built_in">floor</span>((i - <span class="number">1</span>) / k)) i--;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = max(i, <span class="number">1</span>); j &lt;= i2; j++)&#123;</span><br><span class="line">            res[j] = pq.top();</span><br><span class="line">            pq.pop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)&#123;</span><br><span class="line">        fout&lt;&lt; res[i];</span><br><span class="line">        <span class="keyword">if</span>(i &lt; n) fout&lt;&lt;<span class="string">&#x27; &#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码非常非常短了</p>
+<h3 id="P3-秘密袭击"><a href="#P3-秘密袭击" class="headerlink" title="P3 秘密袭击"></a>P3 <a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P4365">秘密袭击</a></h3><p>由于本人是蒟蒻，当然没有想到该怎么写不暴力。于是，我代码的基本思路如下：<br>按照题目输入的边建一幅有向图，使这幅图中每个点的子节点的编号均大于其自身（为了防止多次枚举同一个点集：我们是从1到n进行枚举的，因此如果在搜索时只搜索大于等于起始点的节点，那就一定不会重复）。<br>然后1~n枚举起始点，每次做1轮广搜，枚举新增的节点的所有子集，并与已知的点集合并，再求出第k大节点的危险程度，累加到resu上。<br>具体枚举子集的时候感觉有一点小问题，样例没过，结果0分。在洛谷上评测时WA+TLE……<br>代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">2000</span>, maxv = <span class="number">64123</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Path</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> next, ends;</span><br><span class="line">    Path(): next(<span class="number">0</span>), ends(<span class="number">0</span>)&#123;&#125;</span><br><span class="line">&#125;path[maxn];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Point</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> weight, pta;</span><br><span class="line">    Point(): pta(<span class="number">0</span>), weight(<span class="number">0</span>)&#123;&#125;</span><br><span class="line">&#125;point[maxn];</span><br><span class="line"><span class="keyword">int</span> e = <span class="number">1</span>, n, k, res1[maxn], res2[maxn], WTF, resu;</span><br><span class="line"><span class="keyword">bool</span> done[maxn];</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vec;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a &gt; b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">makep</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a &gt; b) swap(a, b);</span><br><span class="line">    path[e].ends = b;</span><br><span class="line">    path[e].next = point[a].pta;</span><br><span class="line">    point[a].pta = e++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs_res</span><span class="params">(<span class="keyword">int</span> beg, <span class="keyword">int</span> cnt)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = beg; i &lt; vec.size(); i++)&#123;</span><br><span class="line">        res2[cnt + <span class="number">1</span>] = vec[i];</span><br><span class="line">        push_heap(res2 + <span class="number">1</span>, res2 + cnt + <span class="number">1</span>, cmp);</span><br><span class="line">        sort_heap(res2 + <span class="number">1</span>, res2 + cnt + <span class="number">1</span>, cmp);</span><br><span class="line">        resu += res2[k];</span><br><span class="line"><span class="comment">//      fout&lt;&lt;i&lt;&lt;&#x27; &#x27;&lt;&lt;resu&lt;&lt;endl;</span></span><br><span class="line">        <span class="keyword">if</span>(resu &gt;= maxv) resu -= maxv;</span><br><span class="line">        dfs_res(i + <span class="number">1</span>, cnt + <span class="number">1</span>);</span><br><span class="line">        *(lower_bound(res2 + <span class="number">1</span>, res2 + cnt + <span class="number">1</span>, vec[i])) = <span class="number">0</span>;</span><br><span class="line">        make_heap(res2 + <span class="number">1</span>, res2+ cnt + <span class="number">1</span>, cmp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">work</span><span class="params">(<span class="keyword">int</span> beg, <span class="keyword">int</span> cnt)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> cnt2 = cnt;</span><br><span class="line">    res2[cnt] = res1[cnt] = point[beg].weight;</span><br><span class="line">    done[cnt] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = point[beg].pta; i != <span class="number">0</span>; i = path[i].next)&#123;</span><br><span class="line">        <span class="keyword">int</span> p = path[i].ends;</span><br><span class="line">        <span class="keyword">if</span>(done[p]) <span class="keyword">continue</span>;</span><br><span class="line">        done[p] = <span class="literal">true</span>;</span><br><span class="line">        res1[cnt + <span class="number">1</span>] = point[p].weight;</span><br><span class="line">        push_heap(res1 + <span class="number">1</span>, res1 + cnt + <span class="number">1</span>, cmp);</span><br><span class="line">        vec.push_back(point[p].weight);</span><br><span class="line">        cnt++;</span><br><span class="line">    &#125;</span><br><span class="line">    dfs_res(<span class="number">0</span>, cnt2);</span><br><span class="line">    copy(res1 + <span class="number">1</span>, res1 + <span class="number">1</span> + cnt, res2);</span><br><span class="line"><span class="comment">//  fout&lt;&lt;beg&lt;&lt;&#x27; &#x27;;                 ///!!!!!!!!!!!!!!!!!!!!!</span></span><br><span class="line"><span class="comment">//  for(auto x:vec) fout&lt;&lt;x&lt;&lt;&#x27; &#x27;;   ///!!!!!!!!!!!!!!!!!!!!!!!</span></span><br><span class="line"><span class="comment">//  fout&lt;&lt;endl;                     //!!!!!!!!!!!!!!!!!!!!!</span></span><br><span class="line">    vec.clear();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = point[beg].pta; i != <span class="number">0</span>; i = path[i].next) done[path[i].ends] = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = point[beg].pta; i != <span class="number">0</span>; i = path[i].next) work(path[i].ends, cnt);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt; n&gt;&gt; k&gt;&gt; WTF;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;point[i].weight;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i)&#123;</span><br><span class="line">        <span class="keyword">int</span> a, b;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt; a&gt;&gt; b;</span><br><span class="line">        makep(a, b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)&#123;</span><br><span class="line"><span class="comment">//      fout&lt;&lt;&quot;Notice:&quot;&lt;&lt;i&lt;&lt;&#x27; &#x27;;    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span></span><br><span class="line">        work(i, <span class="number">1</span>);</span><br><span class="line"><span class="comment">//      fout&lt;&lt;resu&lt;&lt;endl;</span></span><br><span class="line">        <span class="built_in">memset</span>(res1, <span class="number">0</span>, <span class="keyword">sizeof</span>(res1));</span><br><span class="line">        <span class="built_in">memset</span>(res2, <span class="number">0</span>, <span class="keyword">sizeof</span>(res2));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt; resu;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="赛后"><a href="#赛后" class="headerlink" title="赛后"></a>赛后</h3><p>下午原本计划去听讲题的，结果玩得有一点晚，加上本来就觉得不一定听得懂，就没去，改在宾馆和n0000000000o打泰拉瑞亚。<br>晚上他们一行人去看电影，然而我觉得没啥好看的，就没去（不想看IOI），继续在宾馆玩。直到几位学长到宾馆，聊天。无意中注意到他们都是大佬，越听越羞愧，11点左右便没再玩了，睡觉。</p>
+<h2 id="Day-2"><a href="#Day-2" class="headerlink" title="Day 2"></a>Day 2</h2><p>又是一大清早，又是n0000000000o的房门前，又是咚咚咚的敲门声，又是Sparky的声音“<strong>社区送温暖</strong>”。。。。。。<br>一早起来Sparky的心情莫名地好，在宾馆10楼闲逛，顺便从电梯间的窗口拍了几幅华科校园的晨景<br><img src="https://raw.githubusercontent.com/Sparky-14145/items/master/pictures/%E5%8D%8E%E7%A7%91%E6%A0%A1%E6%99%AF.jpg" alt="华科晨景1"><br><img src="https://raw.githubusercontent.com/Sparky-14145/items/master/pictures/%E5%8D%8E%E7%A7%91%E6%A0%A1%E6%99%AF2.jpg" alt="华科晨景2"><br>Day 2 的试卷密码是：nextyeargotoIOI2019!!!!!!，后来被恶搞得很惨。</p>
+<h3 id="P1-劈配"><a href="#P1-劈配" class="headerlink" title="P1 劈配"></a>P1 <a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P4382">劈配</a></h3><p>Sparky表示看题目看得一脸懵逼，题目很长，强迫自己读完题目以后Sparky甚至天真地以为这是一道<strong>模拟题</strong>。。。<br>由于对于Sparky而言，本题实在是“puzzle problem”，也就没有写任何代码出来，而是专心地写剩下两道题去了。</p>
+<h3 id="P2-林克卡特树"><a href="#P2-林克卡特树" class="headerlink" title="P2 林克卡特树"></a>P2 <a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P4383">林克卡特树</a></h3><p>不得不说本次的题目道道都有恶搞，还都搞得不轻（除了Day 1 P1）。<br>就拿这道林克卡特树来说，Sparky都差点真的认为Link-Cut Tree就是这个内容了。<br>最为讽刺的是命题人在本题的最后面特地加了一句<strong>题目并不难</strong>，然而似乎H<del>ard</del>B<del>lack</del>省这道题最高分也才10分。<br>Sparky写这道题的思路很是奇葩：首先，他的代码中出现了</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;ctime&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdlib&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>相信大家都想到他要干什么了————随….随….随机数！！！<br>他很神奇地把边的权值从小到大排了个序，然后把前k条边的权值改为0。。。贪心！不得不说Sparky实在是太贪心了！<br>然后，他随机地选择20个点，跑Dijkstra（大权值优先），求从这些点出发最多能够获得多少收益，并将这些收益中的最大值作为答案输出。。。由于思路过于奇葩，0分。。。</p>
+<h3 id="P3-制胡窜"><a href="#P3-制胡窜" class="headerlink" title="P3 制胡窜"></a>P3 <a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P4384">制胡窜</a></h3><p>这道题0分，让Sparky感到很对不起panda大佬前天晚上花费大量时间交蒟蒻们字符串的哈希。<br>Sparky这道题写得很暴力：枚举 i 和 j ，每找到一组合适的 i 和 j ，就将ans加1。<br>结果样例都没过。。。。。实在是对不起panda大佬。。。</p>
+<h1 id="赛后-1"><a href="#赛后-1" class="headerlink" title="赛后"></a>赛后</h1><p>匆匆回到宾馆，收拾好行李就走。<br>一路上也没太多好讲的，只是玩手机。。。<br>除了panda被WX坑的那一波，$ 0.7(x + y) = 0.35 x + 0.35 y $。。。笑死<br>我不禁想起了NOIp 2017 初赛时，同行的人们说的</p>
+<blockquote>
+<p>高高兴兴夷陵来，伤伤心心回家去</p>
+</blockquote>
+<p>现在看样子真的是“高高兴兴来武汉，伤伤心心回宜昌”。<br>再就是panda跟我们聊到的</p>
+<blockquote>
+<p>welcometoNOI2018!!!!!!!<br>nextyeargoto高考2019!!!!!!</p>
+</blockquote>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>虽说是去体（hua）验（shui）的，还是有不少的收获与心得：</p>
+<ol>
+<li>学术方面 主要是前面提到的，字符串的哈希。</li>
+<li>个人评价方面 这一次n0000000000o的50分和我自己的20分让我清楚地认识到，自己并没有像之前想象的那样厉害。还是要多加努力，争取更上一层楼（我可不想学了一两年，最后省队都没进，NOI的世面都没见过）。</li>
+<li>其他方面 本次比赛在武汉，可以说是一次小小的放松，也为我未来继续学习信息学，参加竞赛提供了动力。</li>
+</ol>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.sparky-14145.online/2018/04/21/HBOI_2018_%E6%B8%B8%E8%AE%B0/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2018/05/05/%E3%80%90%E6%A8%A1%E6%9D%BF%E3%80%91%20%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            【模板】 并查集
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2018/04/21/%E3%80%90%E6%A8%A1%E6%9D%BF%E3%80%91%20%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">【模板】 单源最短路径</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "gfd27U8OQBNXfsVyIM3nOCud-gzGzoHsz",
+    app_key: "RHXks08vX3ndWf2cjWAS06si",
+    path: window.location.pathname,
+    avatar: "mp",
+    placeholder: "大爷来玩啊~~~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2015-2020
+        <i class="ri-heart-fill heart_icon"></i> Sparky_14145
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://i.loli.net/2020/07/31/qEAHLNDKwdlsXC8.jpg" alt="Sparky_14145&#39;s blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="http://shenyu-vip.lofter.com">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>大爷行行好吧，小的几天没吃过东西了😢</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
+
+<script src="/js/clickBoom1.js"></script>
+
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+<script src="/js/dz.js"></script>
+
+
+
+    
+  </div>
+</body>
+
+</html>

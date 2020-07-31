@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN,default">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="一名蒟蒻的辣鸡博客" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    题解 Luogu P3952 【时间复杂度】 |  Sparky_14145&#39;s blog
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="https://i.loli.net/2019/02/03/5c567285d37de.png" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      <canvas class="fireworks"></canvas>
+      <style>
+        .fireworks {
+          position: fixed;
+          left: 0;
+          top: 0;
+          z-index: 99999;
+          pointer-events: none;
+        }
+      </style>
+      
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-题解_Luogu_P3952【时间复杂度】"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  题解 Luogu P3952 【时间复杂度】
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2018/04/21/%E9%A2%98%E8%A7%A3_Luogu_P3952%E3%80%90%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E3%80%91/" class="article-date">
+  <time datetime="2018-04-21T12:51:08.000Z" itemprop="datePublished">2018-04-21</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.9k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">8 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="新题解"><a href="#新题解" class="headerlink" title="新题解"></a>新题解</h1><p>感觉原来的题解代码写的实在是太丑了<del>自己看了忍不住抽自己两巴掌</del>，所以，在和同学一起限时（$1h$，并没有写完）后决定重新写一下这篇题解。<br>没什么思维难度，就是模拟。妙用递归（每一层调用栈对应一层循环）可以大幅降低编程难度。同时，利用好标准库这个神器可以简化代码。具体的细节已经放在注释里了。  </p>
+<a id="more"></a>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;  // memset</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;   // 字符串</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;  // 字符串流，快捷地把字符串转化为数字</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt; // 输入输出</span></span></span><br><span class="line"></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">string</span> s[<span class="number">105</span>]; <span class="comment">// 保存“代码”</span></span><br><span class="line"><span class="keyword">bool</span> vis[<span class="number">133</span>];      <span class="comment">// 检查变量是否被使用过</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">solve</span><span class="params">(<span class="keyword">int</span> &amp;pos)</span> </span>&#123; <span class="comment">// pos 表示“执行”到哪里了</span></span><br><span class="line"><span class="comment">// 如果有语法错误返回 -1，否则返回 0</span></span><br><span class="line">    <span class="keyword">if</span> (s[pos][<span class="number">0</span>] != <span class="string">&#x27;F&#x27;</span>) <span class="comment">// 循环不以“F”开头，一定有问题</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">char</span> ch = s[pos][<span class="number">2</span>]; <span class="comment">// 本层循环的变量名</span></span><br><span class="line">    <span class="keyword">if</span> (vis[s[pos][<span class="number">2</span>]]) <span class="comment">// 用过的变量名导致语法错误</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    vis[s[pos][<span class="number">2</span>]] = <span class="literal">true</span>; <span class="comment">// 标记为用过</span></span><br><span class="line">    <span class="function"><span class="built_in">std</span>::<span class="built_in">stringstream</span> <span class="title">ss</span><span class="params">(s[pos].substr(<span class="number">4</span>))</span></span>; <span class="comment">// 字符串流，用来分割循环的末尾两个参数</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> s1, s2;</span><br><span class="line">    <span class="keyword">int</span> v1, v2, ans = <span class="number">0</span>, temp = <span class="number">0</span>;</span><br><span class="line">    ss &gt;&gt; s1 &gt;&gt; s2; <span class="comment">// 分割末尾参数</span></span><br><span class="line">    <span class="keyword">if</span> (s1 != <span class="string">&quot;n&quot;</span> &amp;&amp; s2 == <span class="string">&quot;n&quot;</span>) ans = <span class="number">1</span>; <span class="comment">// 从常数循环到 n，说明对答案有贡献</span></span><br><span class="line">    <span class="keyword">if</span> (s1 == <span class="string">&quot;n&quot;</span>) s1 = <span class="string">&quot;1000&quot;</span>; <span class="comment">// 把 n 变成正无穷</span></span><br><span class="line">    <span class="keyword">if</span> (s2 == <span class="string">&quot;n&quot;</span>) s2 = <span class="string">&quot;1000&quot;</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">stringstream</span>(s1) &gt;&gt; v1; <span class="comment">// 分割好的字符串形式的参数变成整数</span></span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">stringstream</span>(s2) &gt;&gt; v2;</span><br><span class="line">    <span class="keyword">while</span> (s[++pos].size() &amp;&amp; s[pos][<span class="number">0</span>] == <span class="string">&#x27;F&#x27;</span>) &#123; <span class="comment">// 检查是否有嵌套的循环，注意可能有多个并列的循环</span></span><br><span class="line">        <span class="keyword">int</span> res = solve(pos); <span class="comment">// 递归计算</span></span><br><span class="line">        <span class="keyword">if</span> (res == <span class="number">-1</span>) <span class="keyword">return</span> <span class="number">-1</span>; <span class="comment">// 如果出现语法错误直接不再检查下面内容</span></span><br><span class="line">        temp = <span class="built_in">std</span>::max(temp, res); <span class="comment">// 更新答案</span></span><br><span class="line">    &#125;</span><br><span class="line">    vis[ch] = <span class="literal">false</span>; <span class="comment">// 调用循环变量的“析构函数”，即将其标记为未使用过</span></span><br><span class="line">    <span class="keyword">if</span> (v1 &lt;= v2) ans += temp; <span class="comment">// 这层循环被执行过，里面的内容对答案有贡献</span></span><br><span class="line">    <span class="keyword">if</span> (s[pos] != <span class="string">&quot;E&quot;</span>) <span class="keyword">return</span> <span class="number">-1</span>; <span class="comment">// 找不到配对的“E”结束循环，说明语法错误</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; t;</span><br><span class="line">    <span class="keyword">while</span>(t--) &#123;</span><br><span class="line">        <span class="keyword">int</span> len, tcomplexity; <span class="comment">// len 是“代码”长度，tcomplexity 是输入的时间复杂度</span></span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">string</span> complexity; <span class="comment">// 字符串形式的时间复杂度</span></span><br><span class="line">        <span class="built_in">memset</span>(vis, <span class="number">0</span>, <span class="keyword">sizeof</span>(vis)); <span class="comment">// 初始时所有变量名都合法</span></span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; len &gt;&gt; complexity;</span><br><span class="line">        <span class="keyword">if</span> (complexity.at(<span class="number">2</span>) == <span class="string">&#x27;1&#x27;</span>) &#123; <span class="comment">// “O(1)”</span></span><br><span class="line">            tcomplexity = <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">stringstream</span> s2(complexity.substr(<span class="number">4</span>)); <span class="comment">// 再次用到字符串流读取输入的时间复杂度</span></span><br><span class="line">            s2 &gt;&gt; tcomplexity;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= len; ++i)</span><br><span class="line">            <span class="built_in">std</span>::getline(<span class="built_in">std</span>::<span class="built_in">cin</span>, s[i]); <span class="comment">// 读入“代码”，注意先读掉刚刚输入其他内容留下的空行</span></span><br><span class="line">        s[len + <span class="number">1</span>].clear(); <span class="comment">// 清除最后一行后的一行，省略边界判断</span></span><br><span class="line">        <span class="keyword">int</span> pos = <span class="number">0</span>, ans = <span class="number">0</span>; <span class="comment">// pos 是处理完了的最后一行的行号，ans 是计算出的时间复杂度</span></span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            <span class="keyword">int</span> temp = solve(++pos); <span class="comment">// 处理已经处理过的下一行</span></span><br><span class="line">            <span class="keyword">if</span> (temp == <span class="number">-1</span>) &#123;</span><br><span class="line">                ans = <span class="number">-1</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                ans = <span class="built_in">std</span>::max(ans, temp);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">while</span> (pos &lt; len); <span class="comment">// 处理完成则退出</span></span><br><span class="line">        <span class="keyword">if</span> (ans == <span class="number">-1</span>) <span class="comment">// 语法错误</span></span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;ERR&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; ((ans == tcomplexity) ? <span class="string">&quot;Yes&quot;</span> : <span class="string">&quot;No&quot;</span>) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="原来的题解"><a href="#原来的题解" class="headerlink" title="原来的题解"></a>原来的题解</h1><hr>
+<p><strong>这道题一看就是。。。。。。递归。。。。对吧（虽说标程和不少题解并不是递归）</strong></p>
+<p>和我同一机房的<del>蒟蒻</del>n0000000000o问我时间复杂度是什么？？？？</p>
+<p>针对这种情况，我的回答是：按5可奉告。。。。。</p>
+<p>其实理解了时间复杂度之后，本题难度也就一般，就是需要注意细节</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">bool</span>&gt; m;<span class="comment">//用于检测变量是否已被创建而未被销毁</span></span><br><span class="line"><span class="comment">//虽说题目中已经保证变量名是一个小写字母，但是个人认为用string保存变量名更好</span></span><br><span class="line"><span class="built_in">string</span> ss[<span class="number">100</span> + <span class="number">5</span>];<span class="comment">//一个用于保存代码的字符串数组</span></span><br><span class="line"><span class="keyword">int</span> len;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">read</span><span class="params">(<span class="keyword">int</span> level, <span class="keyword">bool</span> b, <span class="keyword">int</span> &amp;leng)</span></span>&#123;</span><br><span class="line"><span class="comment">//递归计算复杂度，同时检测编译错误，返回这个循环语句的复杂度</span></span><br><span class="line"><span class="comment">//level表示当前循环的时间复杂度（只可能是0和1，甚至不应该作为函数的参数，而只应该是一个局部变量），b表示这一层循环以及下面的循环的复杂度是否会对代码总复杂度产生影响，leng表示当前程序运行到哪一行了</span></span><br><span class="line"><span class="comment">//返回0代表常数复杂度，-1代表CE</span></span><br><span class="line"><span class="comment">//每一层递归栈代表的是一个循环语句</span></span><br><span class="line">    <span class="keyword">char</span> c;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>, re;</span><br><span class="line">    leng++;</span><br><span class="line">    <span class="built_in">sscanf</span>(ss[leng].c_str(), <span class="string">&quot;%c&quot;</span>, &amp;c);<span class="comment">//读入这一个语句的开头一个字符</span></span><br><span class="line"><span class="comment">//看不懂sscanf, c_str的请自觉百度。。。</span></span><br><span class="line">    <span class="keyword">if</span>(c != <span class="string">&#x27;F&#x27;</span>) <span class="keyword">return</span> <span class="number">-1</span>;<span class="comment">//如果一个循环语句不以F开头，那肯定是ERR</span></span><br><span class="line">    <span class="built_in">string</span> name, n1, n2;</span><br><span class="line">    <span class="function"><span class="built_in">stringstream</span> <span class="title">s</span><span class="params">(ss[leng])</span></span>;</span><br><span class="line">    s&gt;&gt; name&gt;&gt; name&gt;&gt; n1&gt;&gt; n2;<span class="comment">//读两遍name是为了覆盖掉一开始的&#x27;F&#x27;</span></span><br><span class="line">    <span class="keyword">if</span>(m.count(name) &amp;&amp; m[name]) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    m[name] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span>(n1 == <span class="string">&quot;n&quot;</span>) n1 = <span class="string">&quot;1000&quot;</span>;<span class="comment">//由于n远大于x, y&lt;=100, 直接把n变成1000即可</span></span><br><span class="line">    <span class="keyword">if</span>(n2 == <span class="string">&quot;n&quot;</span>) n2 = <span class="string">&quot;1000&quot;</span>;</span><br><span class="line">    <span class="keyword">while</span>(n1.size() &lt; <span class="number">4</span>) n1.insert(n1.begin(), <span class="string">&#x27;0&#x27;</span>);<span class="comment">//由于是字符串比较，需要添加前导0</span></span><br><span class="line">    <span class="keyword">while</span>(n2.size() &lt; <span class="number">4</span>) n2.insert(n2.begin(), <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">    <span class="keyword">if</span>(n2 == <span class="string">&quot;1000&quot;</span> &amp;&amp; n1 &lt; n2 &amp;&amp; b) level++;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(n2 &lt; n1) b = <span class="literal">false</span>;<span class="comment">//x大于y， 下面的代码不执行，因此只需编译即可</span></span><br><span class="line">    <span class="keyword">while</span>(ss[leng + <span class="number">1</span>][<span class="number">0</span>] == <span class="string">&#x27;F&#x27;</span>)&#123;<span class="comment">//注1</span></span><br><span class="line">        re = read(<span class="number">0</span>, b, leng);</span><br><span class="line"><span class="comment">//      cout&lt;&lt; re&lt;&lt;endl;</span></span><br><span class="line">        <span class="keyword">if</span>(re == <span class="number">-1</span>) <span class="keyword">return</span> <span class="number">-1</span>;<span class="comment">//如果内层代码ERR，则整个程序ERR</span></span><br><span class="line">        res = max(res, re);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//    cout&lt;&lt;res&lt;&lt;endl;</span></span><br><span class="line">    leng++;</span><br><span class="line">    <span class="keyword">if</span>(ss[leng][<span class="number">0</span>] != <span class="string">&#x27;E&#x27;</span>) <span class="keyword">return</span> <span class="number">-1</span>;<span class="comment">//如果一个循环语句不以&#x27;E&#x27;结尾， 肯定是ERR</span></span><br><span class="line">    m[name] = <span class="literal">false</span>;</span><br><span class="line"><span class="comment">//    cout&lt;&lt; (b ? level : res)&lt;&lt; endl;</span></span><br><span class="line">    <span class="keyword">return</span> b ? res + level : level;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span>(T--)&#123;</span><br><span class="line">        <span class="keyword">int</span> com = <span class="number">0</span>, leng = <span class="number">0</span>, res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">bool</span> ok = <span class="literal">true</span>;</span><br><span class="line">        <span class="built_in">string</span> s;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt; len&gt;&gt; s;</span><br><span class="line">        <span class="keyword">if</span>(s[<span class="number">2</span>] == <span class="string">&#x27;n&#x27;</span>) <span class="built_in">sscanf</span>(s.c_str() + <span class="number">4</span>, <span class="string">&quot;%d&quot;</span>, &amp;com);<span class="comment">//读取给出的时间复杂度</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= len; ++i)<span class="comment">//注意把0空出来，因为getline会读到一个空行</span></span><br><span class="line">            getline(<span class="built_in">cin</span>, ss[i]);</span><br><span class="line">        ss[len + <span class="number">1</span>] = ss[len + <span class="number">2</span>] = <span class="string">&quot;0&quot;</span>;<span class="comment">//注1</span></span><br><span class="line">        <span class="keyword">while</span>(leng &lt; len)&#123;</span><br><span class="line">            <span class="keyword">int</span> re = read(<span class="number">0</span>, <span class="literal">true</span>, leng);</span><br><span class="line">            <span class="keyword">if</span>(re == <span class="number">-1</span>)&#123;</span><br><span class="line">                <span class="built_in">cout</span>&lt;&lt; <span class="string">&quot;ERR&quot;</span>;</span><br><span class="line">                ok = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            res = max(res, re);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(ok) <span class="built_in">cout</span>&lt;&lt;(com==res?<span class="string">&quot;Yes&quot;</span>:<span class="string">&quot;No&quot;</span>);</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        m.clear();</span><br><span class="line">        leng = <span class="number">0</span>;</span><br><span class="line">        res = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注1：<br>考虑以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">F a 1 n</span><br><span class="line">  F b 1 2</span><br><span class="line">  E</span><br><span class="line">  F b 1 n</span><br><span class="line">  E</span><br><span class="line">E</span><br></pre></td></tr></table></figure>
+
+<p>即一个循环语句的循环体中可能有0个或多个并列的语句，因此在执行下一层语句之后退出当前语句以前，需要预判是否存在与下层语句并列的语句，如果存在，则所有的并列语句都要被运行，并且计算出这些语句中最大复杂度，加到当前递归栈的返回值上去</p>
+<p>由于本人是蒟蒻，口才不好，讲得可能<del>很</del>有一点难懂。如果大家没看懂，欢迎找我私信。如果大家看懂了，请点个赞谢谢</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.sparky-14145.online/2018/04/21/%E9%A2%98%E8%A7%A3_Luogu_P3952%E3%80%90%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E3%80%91/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A8%A1%E6%8B%9F/" rel="tag">模拟</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2018/04/21/%E9%A2%98%E8%A7%A3_Luogu_P1936%E3%80%90%E6%B0%B4%E6%99%B6%E7%81%AF%E7%81%AB%E7%81%B5%E3%80%91/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            题解 Luogu P1936 【水晶灯火灵】
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2018/04/21/%E9%A2%98%E8%A7%A3_UVa12657%E3%80%90Boxes%20in%20a%20Line%E3%80%91/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">题解 UVa12657 【Boxes in a Line】</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "gfd27U8OQBNXfsVyIM3nOCud-gzGzoHsz",
+    app_key: "RHXks08vX3ndWf2cjWAS06si",
+    path: window.location.pathname,
+    avatar: "mp",
+    placeholder: "大爷来玩啊~~~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2015-2020
+        <i class="ri-heart-fill heart_icon"></i> Sparky_14145
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://i.loli.net/2020/07/31/qEAHLNDKwdlsXC8.jpg" alt="Sparky_14145&#39;s blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="http://shenyu-vip.lofter.com">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>大爷行行好吧，小的几天没吃过东西了😢</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
+
+<script src="/js/clickBoom1.js"></script>
+
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+<script src="/js/dz.js"></script>
+
+
+
+    
+  </div>
+</body>
+
+</html>

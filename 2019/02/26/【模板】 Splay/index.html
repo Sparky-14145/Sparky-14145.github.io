@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN,default">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="一名蒟蒻的辣鸡博客" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    【模板】 Splay |  Sparky_14145&#39;s blog
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="https://i.loli.net/2019/02/03/5c567285d37de.png" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      <canvas class="fireworks"></canvas>
+      <style>
+        .fireworks {
+          position: fixed;
+          left: 0;
+          top: 0;
+          z-index: 99999;
+          pointer-events: none;
+        }
+      </style>
+      
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-【模板】 Splay"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  【模板】 Splay
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/02/26/%E3%80%90%E6%A8%A1%E6%9D%BF%E3%80%91%20Splay/" class="article-date">
+  <time datetime="2019-02-26T13:39:30.000Z" itemprop="datePublished">2019-02-26</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%A8%A1%E6%9D%BF/">模板</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.8k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">10 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>题目链接：<br>名次树：<a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P3369">Luogu P3369 【模板】普通平衡树</a><br>区间翻转：<a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P3391">Luogu P3391 【模板】文艺平衡树（Splay）</a></p>
+<a id="more"></a>
+<p>代码：</p>
+<h1 id="名次树"><a href="#名次树" class="headerlink" title="名次树"></a>名次树</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Splay</span> &#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        Splay() : rt(<span class="keyword">new</span> BTNode(<span class="number">-2147483647</span>)), root(<span class="keyword">new</span> BTNode(<span class="number">0</span>, rt)), sz(<span class="number">0</span>), tot(<span class="number">1</span>) &#123;</span><br><span class="line">            root-&gt;<span class="built_in">set</span>(rt, right);</span><br><span class="line">            root-&gt;cnt = root-&gt;sz = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> sz;&#125;</span><br><span class="line">        <span class="function"><span class="keyword">int</span> <span class="title">cap</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> tot;&#125;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">            iterator it = add(root, key);</span><br><span class="line">            it-&gt;splay(root), ++sz;</span><br><span class="line">            root = it;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">erase</span><span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">            iterator it = find(key);</span><br><span class="line">            move(it), --sz;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">int</span> <span class="title">rankOfKey</span><span class="params">(<span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">            iterator it = root;</span><br><span class="line">            <span class="keyword">while</span> (it) &#123;</span><br><span class="line">                <span class="keyword">if</span> (it-&gt;key == key) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (it-&gt;son[left])</span><br><span class="line">                        res += it-&gt;son[left]-&gt;sz;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (it-&gt;key &gt; key) &#123;</span><br><span class="line">                    it = it-&gt;son[left];</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    res += it-&gt;cnt;</span><br><span class="line">                    <span class="keyword">if</span> (it-&gt;son[left])</span><br><span class="line">                        res += it-&gt;son[left]-&gt;sz;</span><br><span class="line">                    it = it-&gt;son[right];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (it) it-&gt;splay(root), root = it;</span><br><span class="line">            <span class="keyword">return</span> res + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">int</span> <span class="title">findByRank</span><span class="params">(<span class="keyword">int</span> rank)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (rank &gt; sz || rank &lt; <span class="number">1</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="number">-2147483648</span>;</span><br><span class="line">            iterator it = root;</span><br><span class="line">            <span class="keyword">while</span> (it) &#123;</span><br><span class="line">                <span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">if</span> (it-&gt;son[left])</span><br><span class="line">                    temp += it-&gt;son[left]-&gt;sz;</span><br><span class="line">                <span class="keyword">if</span> (rank &gt; temp &amp;&amp; rank &lt;= temp + it-&gt;cnt)</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (rank &lt;= temp)</span><br><span class="line">                    it = it-&gt;son[left];</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    rank -= temp + it-&gt;cnt,</span><br><span class="line">                    it = it-&gt;son[right];</span><br><span class="line">            &#125;</span><br><span class="line">            it-&gt;splay(root), root = it;</span><br><span class="line">            <span class="keyword">return</span> it-&gt;key;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">debug</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            deb(root);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">int</span> <span class="title">previous</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">            insert(val);</span><br><span class="line">            iterator it = find(val)-&gt;son[left];</span><br><span class="line">            <span class="keyword">while</span> (it &amp;&amp; it-&gt;son[right])</span><br><span class="line">                it = it-&gt;son[right];</span><br><span class="line">            <span class="keyword">if</span> (!it) <span class="keyword">return</span> <span class="number">-2147483646</span>;</span><br><span class="line">            <span class="keyword">int</span> res = it-&gt;key;</span><br><span class="line">            erase(val);</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">int</span> <span class="title">next</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">            insert(val);</span><br><span class="line">            iterator it = find(val)-&gt;son[right];</span><br><span class="line">            <span class="keyword">while</span> (it &amp;&amp; it-&gt;son[left])</span><br><span class="line">                it = it-&gt;son[left];</span><br><span class="line">            <span class="keyword">if</span> (!it) <span class="keyword">return</span> <span class="number">2147483647</span>;</span><br><span class="line">            <span class="keyword">int</span> res = it-&gt;key;</span><br><span class="line">            erase(val);</span><br><span class="line">            <span class="keyword">return</span> res;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> clock_rotate = <span class="number">0</span>, antl_rotate = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> left = <span class="number">0</span>, right = <span class="number">1</span>;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">BTNode</span> &#123;</span></span><br><span class="line">            <span class="keyword">typedef</span> BTNode *iterator;</span><br><span class="line">            iterator son[<span class="number">2</span>], fa;</span><br><span class="line">            <span class="keyword">int</span> key, sz, cnt;</span><br><span class="line">            <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">int</span> left = <span class="number">0</span>, right = <span class="number">1</span>;</span><br><span class="line">            <span class="comment">//构造函数</span></span><br><span class="line">            BTNode(<span class="keyword">int</span> key, iterator father = <span class="literal">nullptr</span>) &#123;</span><br><span class="line">                <span class="keyword">this</span>-&gt;key = key;</span><br><span class="line">                <span class="keyword">this</span>-&gt;fa = father;</span><br><span class="line">                <span class="keyword">this</span>-&gt;son[right] = <span class="keyword">this</span>-&gt;son[left] = <span class="literal">nullptr</span>;</span><br><span class="line">                <span class="keyword">this</span>-&gt;sz = <span class="keyword">this</span>-&gt;cnt = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//在操作以后更新当前节点对应的子树大小 </span></span><br><span class="line">            <span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                sz = cnt;</span><br><span class="line">                <span class="keyword">if</span> (son[left]) sz += son[left]-&gt;sz;</span><br><span class="line">                <span class="keyword">if</span> (son[right]) sz += son[right]-&gt;sz;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//确定当前节点是父节点的左子树还是右子树</span></span><br><span class="line">            <span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">identify</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> fa-&gt;son[right] == <span class="keyword">this</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">/*建立父子关系  </span></span><br><span class="line"><span class="comment">            mode表示将 this 建成 it 的哪个儿子*/</span></span><br><span class="line">            <span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(iterator it, <span class="keyword">int</span> mode)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">this</span>) <span class="keyword">this</span>-&gt;fa = it;</span><br><span class="line">                <span class="keyword">if</span> (it) it-&gt;son[mode] = <span class="keyword">this</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//自适应旋转（基础操作）</span></span><br><span class="line">            <span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">rotate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">int</span> mode = <span class="keyword">this</span>-&gt;identify(), pos = <span class="keyword">this</span>-&gt;fa-&gt;identify();</span><br><span class="line">                iterator son_node = <span class="keyword">this</span>-&gt;son[mode ^ <span class="number">1</span>], fa_node = <span class="keyword">this</span>-&gt;fa;</span><br><span class="line">                iterator fa_node_fa = fa_node-&gt;fa;</span><br><span class="line">                son_node-&gt;<span class="built_in">set</span>(fa_node, mode);</span><br><span class="line">                fa_node-&gt;<span class="built_in">set</span>(<span class="keyword">this</span>, mode ^ <span class="number">1</span>);</span><br><span class="line">                <span class="keyword">this</span>-&gt;<span class="built_in">set</span>(fa_node_fa, pos);</span><br><span class="line">                fa_node-&gt;update(), <span class="keyword">this</span>-&gt;update();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">/*上旋节点（伸展）  </span></span><br><span class="line"><span class="comment">            把 this 旋转为 it*/</span></span><br><span class="line">            <span class="function"><span class="keyword">void</span> <span class="title">splay</span><span class="params">(iterator it)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">this</span> == it)</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                it = it-&gt;fa;</span><br><span class="line">                <span class="keyword">while</span> (<span class="keyword">this</span>-&gt;fa != it) &#123;</span><br><span class="line">                    iterator father = <span class="keyword">this</span>-&gt;fa;</span><br><span class="line">                    <span class="keyword">if</span> (father-&gt;fa == it)</span><br><span class="line">                        <span class="keyword">this</span>-&gt;rotate();</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;identify() == father-&gt;identify())</span><br><span class="line">                        father-&gt;rotate(), <span class="keyword">this</span>-&gt;rotate();</span><br><span class="line">                    <span class="keyword">else</span></span><br><span class="line">                        <span class="keyword">this</span>-&gt;rotate(), <span class="keyword">this</span>-&gt;rotate();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; *rt, *root;</span><br><span class="line">        <span class="keyword">typedef</span> BTNode *iterator;</span><br><span class="line">        <span class="keyword">int</span> sz, tot;</span><br><span class="line">        <span class="comment">//查找元素，返回迭代器</span></span><br><span class="line">        <span class="function">iterator <span class="title">find</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (!sz) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">            iterator it = root;</span><br><span class="line">            <span class="keyword">while</span> (it) &#123;</span><br><span class="line">                <span class="keyword">if</span> (it-&gt;key == val)</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (it-&gt;key &gt; val)</span><br><span class="line">                    it = it-&gt;son[left];</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    it = it-&gt;son[right];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (it) it-&gt;splay(root), root = it;</span><br><span class="line">            <span class="keyword">return</span> it;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//内部实现：插入元素</span></span><br><span class="line">        <span class="function">iterator <span class="title">add</span><span class="params">(iterator it, <span class="keyword">int</span> key)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (!sz) &#123;</span><br><span class="line">                it-&gt;key = key;</span><br><span class="line">                it-&gt;cnt = <span class="number">1</span>;</span><br><span class="line">                it-&gt;update();</span><br><span class="line">                <span class="keyword">return</span> it;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (key == it-&gt;key) &#123;</span><br><span class="line">                ++(it-&gt;cnt);</span><br><span class="line">                it-&gt;update();</span><br><span class="line">                <span class="keyword">return</span> it;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">int</span> mode = <span class="keyword">int</span> (key &gt; it-&gt;key);</span><br><span class="line">                iterator res;</span><br><span class="line">                <span class="keyword">if</span> (!(it-&gt;son[mode]))</span><br><span class="line">                    res = it-&gt;son[mode] = <span class="keyword">new</span> BTNode(key, it),</span><br><span class="line">                    ++tot;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    res = add(it-&gt;son[mode], key);</span><br><span class="line">                it-&gt;update();</span><br><span class="line">                <span class="keyword">return</span> res;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//内部实现：删除元素</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">move</span><span class="params">(iterator it)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (!it || --(it-&gt;cnt))</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            <span class="keyword">if</span> (!(it-&gt;son[left]) &amp;&amp; !(it-&gt;son[right])) &#123;</span><br><span class="line">                <span class="keyword">if</span> (tot &gt; <span class="number">1</span>)</span><br><span class="line">                    it-&gt;fa-&gt;son[it-&gt;identify()] = <span class="literal">nullptr</span>,</span><br><span class="line">                    it-&gt;fa-&gt;update(), <span class="keyword">delete</span> it, --tot;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    it-&gt;sz = it-&gt;cnt = <span class="number">0</span>,</span><br><span class="line">                    it-&gt;key = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            it-&gt;splay(root), root = it;</span><br><span class="line">            <span class="keyword">if</span> (!it-&gt;son[left]) &#123;</span><br><span class="line">                it-&gt;son[right]-&gt;<span class="built_in">set</span>(rt, right),</span><br><span class="line">                root = it-&gt;son[right], <span class="keyword">delete</span> it, --tot;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                iterator pos = it-&gt;son[left];</span><br><span class="line">                <span class="keyword">while</span> (pos-&gt;son[right])</span><br><span class="line">                    pos = pos-&gt;son[right];</span><br><span class="line">                pos-&gt;splay(root-&gt;son[left]);</span><br><span class="line">                root-&gt;son[right]-&gt;<span class="built_in">set</span>(pos, right);</span><br><span class="line">                pos-&gt;<span class="built_in">set</span>(rt, right), root = pos, <span class="keyword">delete</span> it, --tot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//通过中序遍历来帮忙查错</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">deb</span><span class="params">(iterator it)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (it-&gt;son[left])</span><br><span class="line">                deb(it-&gt;son[left]);</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;--- &quot;</span> &lt;&lt; it-&gt;key &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">if</span> (it-&gt;son[right])</span><br><span class="line">                deb(it-&gt;son[right]);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::ios::sync_with_stdio(<span class="literal">false</span>);</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    Splay s;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">while</span> (n--) &#123;</span><br><span class="line">        <span class="keyword">int</span> op, v;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; op &gt;&gt; v;</span><br><span class="line">        <span class="keyword">if</span> (op == <span class="number">1</span>) &#123;</span><br><span class="line">            s.insert(v);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (op == <span class="number">2</span>) &#123;</span><br><span class="line">            s.erase(v);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (op == <span class="number">3</span>) &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; s.rankOfKey(v) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (op == <span class="number">4</span>) &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; s.findByRank(v) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (op == <span class="number">5</span>) &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; s.previous(v) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (op == <span class="number">6</span>) &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; s.next(v) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;----------------DEBUG------------------&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">            s.debug(), <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;The size of the tree is: &quot;</span> &lt;&lt; s.size() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;The count of the nodes is: &quot;</span> &lt;&lt; s.cap() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;--------------DEBUG END----------------&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="区间翻转"><a href="#区间翻转" class="headerlink" title="区间翻转"></a>区间翻转</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">BTNode</span>;</span></span><br><span class="line"><span class="keyword">typedef</span> BTNode *iterator;</span><br><span class="line"></span><br><span class="line"><span class="comment">// O2情况下不允许把空指针当作参数 this 传至成员函数中</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> setFather(this, fa, mode) \</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>) <span class="keyword">this</span>-&gt;father = fa; \</span><br><span class="line">    <span class="keyword">if</span> (fa) fa-&gt;son[mode] = <span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">BTNode</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> key, sz, cnt;</span><br><span class="line">    <span class="keyword">bool</span> in_array, rev;</span><br><span class="line">    iterator son[<span class="number">2</span>], father;</span><br><span class="line">    BTNode(<span class="keyword">int</span> key, <span class="keyword">bool</span> in_array) &#123;</span><br><span class="line">        sz = <span class="number">1</span>, cnt = <span class="number">1</span>, rev = <span class="literal">false</span>;</span><br><span class="line">        son[<span class="number">0</span>] = son[<span class="number">1</span>] = father = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">this</span>-&gt;key = key, <span class="keyword">this</span>-&gt;in_array = in_array;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">identify</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">int</span>(<span class="keyword">this</span> == father-&gt;son[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;sz = <span class="keyword">this</span>-&gt;cnt;</span><br><span class="line">        <span class="keyword">if</span> (son[<span class="number">0</span>]) <span class="keyword">this</span>-&gt;sz += son[<span class="number">0</span>]-&gt;sz;</span><br><span class="line">        <span class="keyword">if</span> (son[<span class="number">1</span>]) <span class="keyword">this</span>-&gt;sz += son[<span class="number">1</span>]-&gt;sz;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!father || !(father-&gt;father))</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        iterator father = <span class="keyword">this</span>-&gt;father, grandpa = father-&gt;father;</span><br><span class="line">        <span class="keyword">int</span> pos_father = <span class="keyword">this</span>-&gt;identify(), pos_grandpa = father-&gt;identify();</span><br><span class="line">        iterator son = <span class="keyword">this</span>-&gt;son[pos_father ^ <span class="number">1</span>];</span><br><span class="line">        setFather(<span class="keyword">this</span>, grandpa, pos_grandpa);</span><br><span class="line">        setFather(son, father, pos_father);</span><br><span class="line">        setFather(father, <span class="keyword">this</span>, pos_father ^ <span class="number">1</span>);</span><br><span class="line">        father-&gt;update(), <span class="keyword">this</span>-&gt;update();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">splay</span><span class="params">(iterator to)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span> == to) <span class="keyword">return</span>;</span><br><span class="line">        to = to-&gt;father;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">this</span>-&gt;father != to) &#123;</span><br><span class="line">            iterator upper = <span class="keyword">this</span>-&gt;father;</span><br><span class="line">            <span class="keyword">if</span> (upper-&gt;father == to)</span><br><span class="line">                <span class="keyword">this</span>-&gt;rotate();</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>-&gt;identify() == upper-&gt;identify())</span><br><span class="line">                upper-&gt;rotate(), <span class="keyword">this</span>-&gt;rotate();</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">this</span>-&gt;rotate(), <span class="keyword">this</span>-&gt;rotate();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">pushDown</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!(<span class="keyword">this</span>-&gt;rev)) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span> (son[<span class="number">0</span>]) son[<span class="number">0</span>]-&gt;rev ^= <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (son[<span class="number">1</span>]) son[<span class="number">1</span>]-&gt;rev ^= <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">this</span>-&gt;rev = <span class="literal">false</span>;</span><br><span class="line">        <span class="built_in">std</span>::swap(son[<span class="number">0</span>], son[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">iterator root, rt;</span><br><span class="line"><span class="keyword">int</span> n, m;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    iterator it = root;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n; i &gt;= <span class="number">0</span>; --i) &#123;</span><br><span class="line">        it-&gt;son[<span class="number">0</span>] = <span class="keyword">new</span> BTNode(i, <span class="keyword">bool</span>(i));</span><br><span class="line">        setFather(it-&gt;son[<span class="number">0</span>], it, <span class="number">0</span>);</span><br><span class="line">        it = it-&gt;son[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (it != rt)</span><br><span class="line">        it-&gt;update(),</span><br><span class="line">        it = it-&gt;father;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">iterator <span class="title">findByRank</span><span class="params">(<span class="keyword">int</span> rank)</span> </span>&#123;</span><br><span class="line">    iterator it = root;</span><br><span class="line">    <span class="keyword">while</span> (it) &#123;</span><br><span class="line">        <span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">        it-&gt;pushDown();</span><br><span class="line">        <span class="keyword">if</span> (it-&gt;son[<span class="number">0</span>])</span><br><span class="line">            temp += it-&gt;son[<span class="number">0</span>]-&gt;sz;</span><br><span class="line">        <span class="keyword">if</span> (rank &lt;= temp)</span><br><span class="line">            it = it-&gt;son[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (rank &lt;= temp + it-&gt;cnt)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            rank -= temp + it-&gt;cnt,</span><br><span class="line">            it = it-&gt;son[<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> it;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    rt = <span class="keyword">new</span> BTNode(<span class="number">19260817</span>, <span class="literal">false</span>);</span><br><span class="line">    rt-&gt;cnt = rt-&gt;sz = <span class="number">0</span>;</span><br><span class="line">    rt-&gt;son[<span class="number">0</span>] = <span class="keyword">new</span> BTNode(n + <span class="number">1</span>, <span class="literal">false</span>);</span><br><span class="line">    setFather(rt-&gt;son[<span class="number">0</span>], rt, <span class="number">0</span>); root = rt-&gt;son[<span class="number">0</span>];</span><br><span class="line">    build();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">modify</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    r += <span class="number">2</span>;</span><br><span class="line">    iterator left = findByRank(l), right = findByRank(r);</span><br><span class="line">    <span class="comment">// std::cout &lt;&lt; left-&gt;key &lt;&lt; &#x27; &#x27; &lt;&lt; right-&gt;key &lt;&lt; std::endl;</span></span><br><span class="line">    left-&gt;splay(root), root = left;</span><br><span class="line">    right-&gt;splay(root-&gt;son[<span class="number">1</span>]);</span><br><span class="line">    iterator it = right-&gt;son[<span class="number">0</span>];</span><br><span class="line">    it-&gt;rev ^= <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printAns</span><span class="params">(iterator pos)</span> </span>&#123;</span><br><span class="line">    pos-&gt;pushDown();</span><br><span class="line">    <span class="keyword">if</span> (pos-&gt;son[<span class="number">0</span>])</span><br><span class="line">        printAns(pos-&gt;son[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">if</span> (pos-&gt;in_array)</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; pos-&gt;key &lt;&lt; <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">    <span class="keyword">if</span> (pos-&gt;son[<span class="number">1</span>])</span><br><span class="line">        printAns(pos-&gt;son[<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    init();</span><br><span class="line">    <span class="keyword">int</span> l, r;</span><br><span class="line">    <span class="keyword">while</span> (m--) &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; l &gt;&gt; r;</span><br><span class="line">        modify(l, r);</span><br><span class="line">    &#125;</span><br><span class="line">    printAns(root);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.sparky-14145.online/2019/02/26/%E3%80%90%E6%A8%A1%E6%9D%BF%E3%80%91%20Splay/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Splay/" rel="tag">Splay</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2019/03/02/%E3%80%90%E6%A8%A1%E6%9D%BF%E3%80%91%20%E4%B8%BB%E5%B8%AD%E6%A0%91/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            【模板】主席树（可持久化线段树）
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2018/11/08/%E3%80%90%E6%A8%A1%E6%9D%BF%E3%80%91Tarjan%E6%B1%82%E5%BC%BA%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">【模板】Tarjan 求强连通分量</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "gfd27U8OQBNXfsVyIM3nOCud-gzGzoHsz",
+    app_key: "RHXks08vX3ndWf2cjWAS06si",
+    path: window.location.pathname,
+    avatar: "mp",
+    placeholder: "大爷来玩啊~~~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2015-2020
+        <i class="ri-heart-fill heart_icon"></i> Sparky_14145
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://i.loli.net/2020/07/31/qEAHLNDKwdlsXC8.jpg" alt="Sparky_14145&#39;s blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" target="_blank" rel="noopener" href="http://shenyu-vip.lofter.com">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>大爷行行好吧，小的几天没吃过东西了😢</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script>
+
+<script src="/js/clickBoom1.js"></script>
+
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+<script src="/js/dz.js"></script>
+
+
+
+    
+  </div>
+</body>
+
+</html>
